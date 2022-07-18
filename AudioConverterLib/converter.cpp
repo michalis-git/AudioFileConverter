@@ -30,7 +30,6 @@ bool Converter::applyConversion(const std::string fileFormat,
                                  bool isToBeNormalized) {
 
   if (channelCount != m_channelCount) {
-    //    m_file = convertFile(from, to);
     m_audioFile.setNumChannels(channelCount);
     qDebug() << "file is being converted from " << m_channelCount << " to " << channelCount << " channel count";
   }
@@ -73,7 +72,6 @@ int Converter::bitDepth() {
 }
 
 
-// TODO: should be applied to the output file??
 void Converter::normalizeAmplitude() {
   float gain = 0.5f;
 
