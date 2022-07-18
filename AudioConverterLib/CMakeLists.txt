@@ -1,48 +1,22 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.14)
 
-project(AudioConverterLib VERSION 0.1 LANGUAGES CXX)
+project(AudioConverterLib LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
-set(PROJECT_SOURCES
-        converter.cpp
-        converter.h
-        Converter_global.h
+add_library(AudioConverterLib SHARED
+  Converter_global.h
+  converter.h
+  converter.cpp
 )
-
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(AudioConverterLib
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET AudioConverterLib APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(AudioConverterLib SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(AudioConverterLib
-            ${PROJECT_SOURCES}
-        )
-    endif()
-endif()
-
 
 include(FetchContent)
 
@@ -55,16 +29,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(AudioFile)
 
 
-target_link_libraries(AudioConverterLib PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(AudioConverterLib PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 
-set_target_properties(AudioConverterLib PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
-)
-
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(AudioConverterLib)
-endif()
+target_compile_definitions(AudioConverterLib PRIVATE AUDIOCONVERTERLIB_LIBRARY)

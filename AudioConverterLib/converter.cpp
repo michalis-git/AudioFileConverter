@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <iostream>
 
+
 Converter::Converter(const std::string filePath, const std::string fileName) {
   // TODO: handle error
   std::string fullPath = filePath + fileName;
