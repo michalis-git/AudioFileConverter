@@ -4,7 +4,7 @@
 #include "Converter_global.h"
 
 #include <QObject>
-#include "_deps/audiofile-src/AudioFile.h"
+#include "AudioFile.h"
 
 
 class CONVERTER_EXPORT Converter
