@@ -7,7 +7,7 @@
 #include "AudioFile.h"
 
 
-class CONVERTER_EXPORT Converter
+class CONVERTERSHARED_EXPORT Converter
 {
 public:
   Converter(const std::string filePath, const std::string fileName);
