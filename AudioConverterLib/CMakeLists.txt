@@ -29,7 +29,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(AudioFile)
 
 
-target_link_libraries(AudioConverterLib PRIVATE
+target_link_libraries(AudioConverterLib PUBLIC
   Qt${QT_VERSION_MAJOR}::Core
   AudioFile
 )
