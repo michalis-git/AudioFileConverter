@@ -44,7 +44,7 @@ FetchContent_MakeAvailable(AudioFile)
 export(TARGETS AudioFile
         FILE "${CMAKE_CURRENT_BINARY_DIR}/AudioFileConfig.cmake")
 export(TARGETS AudioConverterLib
-        FILE "${CMAKE_CURRENT_BINARY_DIR}/AudioConverterLibConfig.cmake")
+        FILE "${CMAKE_CURRENT_BINARY_DIR}/AudioFileConverterConfig.cmake")
 
 #add_subdirectory(AudioFile)
 
