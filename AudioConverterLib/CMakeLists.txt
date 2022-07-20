@@ -26,12 +26,21 @@ FetchContent_Declare(
   GIT_TAG        1.1.0
 )
 
-FetchContent_MakeAvailable(AudioFile)
 
+if(NOT AudioFile_POPULATED)
+    FetchContent_Populate(AudioFile)
+    # Make subproject to use 'BUILD_SHARED_LIBS=ON' setting.
+    set(BUILD_SHARED_LIBS ON CACHE INTERNAL "Build SHARED libraries")
+    add_subdirectory(${AudioFile_SOURCE_DIR} ${AudioFile_BINARY_DIR})
+endif()
 
-target_link_libraries(AudioConverterLib PRIVATE
+target_link_libraries(AudioConverterLib PUBLIC
   Qt${QT_VERSION_MAJOR}::Core
   AudioFile
 )
 
-target_compile_definitions(AudioConverterLib PRIVATE AUDIOCONVERTERLIB_LIBRARY)
+FetchContent_MakeAvailable(AudioFile)
+
+#add_subdirectory(AudioFile)
+
+target_compile_definitions(AudioConverterLib PUBLIC AUDIOCONVERTERLIB_LIBRARY)
