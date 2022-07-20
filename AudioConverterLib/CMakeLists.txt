@@ -41,6 +41,11 @@ target_link_libraries(AudioConverterLib PUBLIC
 
 FetchContent_MakeAvailable(AudioFile)
 
+export(TARGETS AudioFile
+        FILE "${CMAKE_CURRENT_BINARY_DIR}/AudioFileConfig.cmake")
+export(TARGETS AudioConverterLib
+        FILE "${CMAKE_CURRENT_BINARY_DIR}/AudioConverterLibConfig.cmake")
+
 #add_subdirectory(AudioFile)
 
 target_compile_definitions(AudioConverterLib PUBLIC AUDIOCONVERTERLIB_LIBRARY)
