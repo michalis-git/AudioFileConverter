@@ -12,11 +12,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
-add_library(AudioConverterLib SHARED
-  Converter_global.h
-  converter.h
-  converter.cpp
-)
+#add_library(AudioConverterLib SHARED
+#  Converter_global.h
+#  converter.h
+#  converter.cpp
+#)
+add_library (${PROJECT_NAME} INTERFACE)
+
+target_include_directories (
+  ${PROJECT_NAME}
+  INTERFACE $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}>
+            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+
+target_compile_features (${PROJECT_NAME} INTERFACE cxx_std_11)
 
 include(FetchContent)
 
@@ -34,7 +42,7 @@ if(NOT AudioFile_POPULATED)
     add_subdirectory(${AudioFile_SOURCE_DIR} ${AudioFile_BINARY_DIR})
 endif()
 
-target_link_libraries(AudioConverterLib PUBLIC
+target_link_libraries(AudioConverterLib INTERFACE
   Qt${QT_VERSION_MAJOR}::Core
   AudioFile
 )
@@ -48,4 +56,4 @@ export(TARGETS AudioConverterLib
 
 #add_subdirectory(AudioFile)
 
-target_compile_definitions(AudioConverterLib PUBLIC AUDIOCONVERTERLIB_LIBRARY)
+target_compile_definitions(AudioConverterLib INTERFACE AUDIOCONVERTERLIB_LIBRARY)
