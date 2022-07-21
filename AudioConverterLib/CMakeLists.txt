@@ -14,12 +14,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
-#add_library(AudioConverterLib SHARED
-#  Converter_global.h
-#  converter.h
-#  converter.cpp
-#)
-add_library (${PROJECT_NAME} INTERFACE)
+add_library(AudioConverterLib INTERFACE
+  Converter_global.h
+  converter.h
+  converter.cpp
+)
+#add_library (${PROJECT_NAME} INTERFACE)
 
 target_include_directories (
   ${PROJECT_NAME}
